@@ -4,7 +4,6 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import io.github.steamautomata.musiczones.MusicZoneManager;
-import io.github.steamautomata.musiczones.commands.arguments.ZoneLabelArgument;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -14,8 +13,9 @@ public class RemoveCommand {
     static ArgumentBuilder<CommandSourceStack, ?> register() {
         // Horrible
         return Commands.literal("remove")
-            .then(Commands.argument("label", new ZoneLabelArgument())
-                .executes(RemoveCommand::removeMusicZone)
+            .then(Commands.argument("label", StringArgumentType.word())
+                    .suggests(ZMCommands::getSuggestions)
+                    .executes(RemoveCommand::removeMusicZone)
             );
     }
 

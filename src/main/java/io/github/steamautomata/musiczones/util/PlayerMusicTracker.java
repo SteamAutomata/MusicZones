@@ -20,7 +20,7 @@ public class PlayerMusicTracker {
     }
 
     public boolean hasMoved() {
-        if (lastPosition.distanceTo(player.position()) > 1d) {
+        if (lastPosition.distanceTo(player.position()) > 0.25d) {
             lastPosition = player.position();
             return true;
         }

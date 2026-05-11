@@ -16,20 +16,18 @@ But most of these mods have their own issues. So I came up with a a fair trade:
 - Command blocks can create and remove zones
 - Integrates poorly with vanilla minecraft music
 
-There is valid concerns about performance as the mod needs to loop over every Music Zones created, the tickrate might suffer from iterating over hundred of zones.
+# Performance impact
+My approach is not meant for thousands of zones in the server. It goes over every players, and loops for every zones inside their respective dimension. The more zones, the bigger the performance impact is. With Spark, it should be easy to determine if Music Zones is responsible for the tick rate impact since there is no mixins (it only use NeoForge events).
+
+Zones are stored per dimensions, for example, a player in the End won't need to check for zones inside the Overworld.
+
+The check also only runs for players who have moved at least one block. 
+
+I've been told to store zones in chunks, but it's too complex to implement for now, and this mod is just a proof of context to see if anyone will find a use to it.
 
 # Any issues?
-
 Create an Issue or a Pull Request. No matter how important it is, even if it's for fixing a typo in the README.
 But please make sure the issue is caused by Music Zones.
 
-I won't support Fabric nor other Minecraft versions, feel free to port. 
 
-# TODO
-For transparency reasons, those planned features needs to be added and are not implemented yet:
-- [] Don't run `MusicZoneManager::onServerTick` every tick
-- [] Add enable/disable to music zones for better management with command blocks
-- [] Refactor the whole source code and hope it won't break existing worlds
-- [] ZoneLabelArgument is not working properly yet
-- [] Create a ResourceLocationListArgument, or find a way to accept multiple resource locations, or even add resource locations to a zone later.
-- [] Actually, also be able to completely edit zones after they have been created 
+I won't support Fabric nor other Minecraft versions, feel free to port.

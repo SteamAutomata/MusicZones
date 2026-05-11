@@ -13,7 +13,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class ClientConfig {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ModConfigSpec.BooleanValue STOP_MUSIC_AREA_ON_LEAVE = BUILDER.comment("Stops the area musics when you leave the area. (Will only stop the music if the ResourceLocation doesn't matches)").define("stopMusicOnAreaExit", true);
+    private static final ModConfigSpec.BooleanValue STOP_MUSIC_AREA_ON_LEAVE = BUILDER.comment("Stops the area music when you leave the area if true. Otherwise, the music will still play even if you leave.").define("stopMusicOnAreaExit", true);
 
     //public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER.comment("What you want the introduction message to be for the magic number").define("magicNumberIntroduction", "The magic number is... ");
 

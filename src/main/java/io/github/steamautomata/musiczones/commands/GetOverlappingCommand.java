@@ -21,10 +21,7 @@ public class GetOverlappingCommand {
         return Commands.literal("get_overlapping").executes(GetOverlappingCommand::getOverlapping);
     }
 
-    // O(x + y*3) y < x
-    // Peut faire mieux
     private static int getOverlapping(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
-
         Level level = ctx.getSource().getLevel();
 
         var overlappingZones = new ArrayList<MusicZone>();
@@ -41,14 +38,14 @@ public class GetOverlappingCommand {
         overlappingZones.sort(Comparator.comparing(z -> z.priority));
 
         ctx.getSource().sendSuccess(() -> Component.literal(
-                String.format("Found %s zones:", Integer.toString(overlappingZones.size()))
+                String.format("Found %s zones:", overlappingZones.size())
         ), true);
 
         for (int i = 0; i < overlappingZones.size(); i++) {
             var zone = overlappingZones.get(i);
             final int finalI = i;
             ctx.getSource().sendSuccess(() -> Component.literal(
-                    String.format(" %s. %s", Integer.toString(finalI), zone.toStringCommandOutput())
+                    String.format(" %s. %s", finalI, zone.toStringCommandOutput())
             ), true);
         }
         return 1;

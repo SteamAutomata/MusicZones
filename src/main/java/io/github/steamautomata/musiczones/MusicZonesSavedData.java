@@ -24,12 +24,13 @@ public class MusicZonesSavedData extends SavedData {
         ListTag zoneTags = levelNbt.getList("MusicZones", ListTag.TAG_COMPOUND);
         for (int i = 0; i < zoneTags.size(); i++) {
             var zt = zoneTags.getCompound(i);
+
             var zone = new MusicZone(
                     new Vec3(zt.getDouble("X1"), zt.getDouble("Y1"), zt.getDouble("Z1")),
                     new Vec3(zt.getDouble("X2"), zt.getDouble("Y2"), zt.getDouble("Z2")),
-                    MusicZonesMod.stringToResourceLocation(zt.getString("ResourceLocations")),
                     zt.getInt("Priority")
             );
+            zone.setSounds(zt.getString("Sounds"));
             zone.label = zt.getString("Label");
             data.musicZones.put(zt.getString("Label"), zone);
         }
@@ -54,7 +55,7 @@ public class MusicZonesSavedData extends SavedData {
 
             zoneTag.putInt("Priority", musicZone.priority);
             zoneTag.putString("Label", entry.getKey());
-            zoneTag.putString("ResourceLocations", MusicZonesMod.resourceLocationsToString(musicZone.associated_musics));
+            zoneTag.putString("Sounds", musicZone.getSoundsAsString());
 
             musicZonesList.add(zoneTag);
         }

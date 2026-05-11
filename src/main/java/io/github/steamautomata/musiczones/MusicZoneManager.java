@@ -18,8 +18,14 @@ import java.util.*;
 
 @EventBusSubscriber(modid = MusicZonesMod.MODID)
 public class MusicZoneManager {
-    public static MusicZone addMusicZone(Level level, String label, Vec3 from, Vec3 to, String locations, int priority) {
-        var musicZone = new MusicZone(from, to, MusicZonesMod.stringToResourceLocation(locations), priority);
+    public static void setDirty(Level level) {
+        getSavedData(level).setDirty();
+    }
+
+    /** Creates an instance of a MusicZone */
+    public static MusicZone addMusicZone(Level level, String label, Vec3 from, Vec3 to, ResourceLocation event, int priority) {
+        var musicZone = new MusicZone(from, to, priority);
+        musicZone.setSound(event);
         musicZone.label = label;
         return addMusicZone(level, label, musicZone);
     }
@@ -89,8 +95,11 @@ public class MusicZoneManager {
         }
     }
 
+    private static int tickCounter = 0;
     @SubscribeEvent
     public static void onServerTick(ServerTickEvent.Post event) {
+        if (++tickCounter % 10 != 0) return;
+
         for (var tracker : trackedPlayers.values()) {
             if (!tracker.hasMoved()) {
                 continue;
@@ -100,7 +109,8 @@ public class MusicZoneManager {
             var resourceLocations = new HashSet<ResourceLocation>();
 
             for (var zone : MusicZoneManager.getMusicZones(tracker.player.serverLevel()).values()) {
-                if (!zone.overlaps(tracker.player.position())) continue;
+                if (!zone.isEnabled()) continue;
+                if (!zone.overlaps(tracker.player.blockPosition())) continue;
                 if (zone.priority < highestPriority) continue;
 
                 if (zone.priority > highestPriority) {
@@ -108,7 +118,7 @@ public class MusicZoneManager {
                     resourceLocations.clear();
                 }
 
-                resourceLocations.addAll(Arrays.asList(zone.associated_musics));
+                resourceLocations.addAll(zone.getSounds());
             }
 
             // Apparently it checks if the contents are equals, not if the two objects are equal
