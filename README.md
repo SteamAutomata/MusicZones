@@ -2,8 +2,6 @@
 
 An experimental Minecraft NeoForge mod that adds music zones. Pretty much like custom biome musics, but instead of biomes, you define specific coordinates using commands. Perfect for mapmaking or survival multiplayer worlds that needs to be more lively.
 
-Music Zones is licensed GNU GPLv3
-
 # Why?
 
 I used mods like Etched, WaterMedia and other music mods to have musics related to specific areas. Like shops, dungeons or even a whole city. Like in a RPG!
