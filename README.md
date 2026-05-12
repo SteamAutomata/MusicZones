@@ -12,7 +12,7 @@ But most of these mods have their own issues. So I came up with a a fair trade:
 - Using priorities, you can put zones inside zones, and the zone with the highest priority will be played first.
 - Zones are identified by a unique label.
 - Command blocks can create and remove zones
-- Integrates poorly with vanilla minecraft music
+- Integrates better with vanilla minecraft music, and potential other mods that changes vanilla minecraft music
 
 # Performance impact
 My approach is not meant for thousands of zones in the server. It goes over every players, and loops for every zones inside their respective dimension. The more zones, the bigger the performance impact is. With Spark, it should be easy to determine if Music Zones is responsible for the tick rate impact since there is no mixins (it only use NeoForge events).
@@ -21,11 +21,9 @@ Zones are stored per dimensions, for example, a player in the End won't need to 
 
 The check also only runs for players who have moved at least one block. 
 
-I've been told to store zones in chunks, but it's too complex to implement for now, and this mod is just a proof of context to see if anyone will find a use to it.
+I've been told to store zones in chunks, but it's too complex to implement for now, and this mod is just a proof of concept to see if anyone will find a use to it.
 
 # Any issues?
 Create an Issue or a Pull Request. No matter how important it is, even if it's for fixing a typo in the README.
 But please make sure the issue is caused by Music Zones.
-
-
 I won't support Fabric nor other Minecraft versions, feel free to port.
